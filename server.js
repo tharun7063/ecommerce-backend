@@ -13,7 +13,10 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:5173", "https://tharun7063.github.io/ecommerce-frontend/"],
+  credentials: true
+}));
 app.use(helmet());
 app.use(morgan("dev"));
 
