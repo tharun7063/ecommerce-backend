@@ -78,7 +78,7 @@ async function initializeUser() {
     User.hasMany(AccountLogs, { foreignKey: 'user_id', sourceKey: 'id' });
 
 
-    const { categories, brands, products, product_variants, product_options, product_option_values, product_media, banners } = require('./modules/storeModule/store.db.model');
+    const { categories, brands, products, product_variants, product_options, product_option_values, product_media, banners, wishlists } = require('./modules/storeModule/store.db.model');
 
 
     const Banner = banners(sequelize);
@@ -89,6 +89,7 @@ async function initializeUser() {
     const ProductOptionValue = product_option_values(sequelize);
     const ProductOption = product_options(sequelize);
     const ProductMedia = product_media(sequelize);
+    const Wishlist = wishlists(sequelize);
 
 
 
@@ -134,6 +135,18 @@ async function initializeUser() {
     Product.hasMany(ProductMedia, { foreignKey: "product_id", as: "images", onDelete: "CASCADE" });
     ProductMedia.belongsTo(Product, { foreignKey: "product_id", as: "product" });
 
+    // Wishlist ↔ User
+    Wishlist.belongsTo(User, { foreignKey: 'user_id', as: 'user', onDelete: 'CASCADE' });
+    User.hasMany(Wishlist, { foreignKey: 'user_id', as: 'wishlists', onDelete: 'CASCADE' });
+
+    // Wishlist ↔ Product
+    Wishlist.belongsTo(Product, { foreignKey: 'product_id', as: 'product', onDelete: 'CASCADE' });
+    Product.hasMany(Wishlist, { foreignKey: 'product_id', as: 'wishlists', onDelete: 'CASCADE' });
+
+    //wishlist ↔ ProductVariant
+    Wishlist.belongsTo(ProductVariant, { foreignKey: 'variant_id', as: 'variant', onDelete: 'CASCADE' });
+    ProductVariant.hasMany(Wishlist, { foreignKey: 'variant_id', as: 'wishlists', onDelete: 'CASCADE' });
+
 
 
 
@@ -167,6 +180,7 @@ async function initializeUser() {
     exported.ProductOptionValue = ProductOptionValue;
     exported.ProductMedia = ProductMedia;
     exported.Banner = Banner;
+    exported.Wishlist = Wishlist;
 
 
     exported.sequelize = sequelize;

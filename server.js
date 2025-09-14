@@ -23,6 +23,7 @@ app.use('/category', auth.authenticate, auth.authorizeAdminOnly, require('./modu
 app.use('/brand', require('./modules/storeModule/brands/brand.controller'));
 app.use('/product', require('./modules/storeModule/products/product.controller'));
 app.use('/banner', require('./modules/storeModule/banners/banners.controller'));
+app.use('/wishlist', require('./modules/storeModule/wishlist/wishlist.controller'));
 
 // Global error handler (must come after routes)
 app.use((err, req, res, next) => {

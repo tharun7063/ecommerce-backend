@@ -22,7 +22,8 @@ module.exports = {
     orders,
     order_items,
     payments,
-    admin_logs
+    admin_logs,
+    wishlists
 }
 
 function banners(sequelize) {
@@ -235,5 +236,23 @@ function payments(sequelize) {
 
 function admin_logs(sequelize) {
 
+}
+
+function wishlists(sequelize) {
+    const attributes = {
+        id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
+        uid: { type: DataTypes.STRING(64), unique: true, defaultValue: () => generateUid(), allowNull: false },
+        user_id: { type: DataTypes.INTEGER, allowNull: false },
+        product_id: { type: DataTypes.BIGINT, allowNull: false },
+        variant_id: { type: DataTypes.BIGINT, allowNull: true },
+        created_by: { type: DataTypes.STRING(64), allowNull: false },
+        updated_by: { type: DataTypes.STRING(64), allowNull: true }
+    };
+    return sequelize.define('wishlists', attributes, {
+        tableName: 'wishlists',
+        timestamps: true,   
+        createdAt: 'created_at',
+        updatedAt: 'updated_at'
+    });
 }
 
