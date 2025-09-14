@@ -1,0 +1,38 @@
+{
+    "admindatabase":{
+        "host": "mysql-8178d6-soniq-music.e.aivencloud.com",
+        "port": 17502,
+        "user": "avnadmin",
+        "password": "AVNS_BhO9g-cKyopDuH-X5VJ",
+        "database": "ecom_admin_module_db"
+    },
+    
+    "userdatabase":{
+         "host": "mysql-8178d6-soniq-music.e.aivencloud.com",
+        "port": 17502,
+        "user": "avnadmin",
+        "password": "AVNS_BhO9g-cKyopDuH-X5VJ",
+        "database": "ecom_user_module_db"
+    },
+
+  "auth_types": {
+        "email": "email",
+        "mobile": "mobile",
+        "google": "google",
+        "apple": "apple"
+    },
+
+    "oauth_types": {
+        "google": "google",
+        "apple": "apple"
+    },
+    
+    "jwt_secret":"zyxabcdpqrstlmno",
+    "authentication_type": "otp",
+    "multiple_devices_allowed": true,
+    "user_signup": true,
+
+    "CLOUDINARY_CLOUD_NAME":"dzp06fitc",
+    "CLOUDINARY_API_KEY":"728138838128742",
+    "CLOUDINARY_API_SECRET":"APEPzVYX83KV8i-EvgXlf5FwDX0"
+}
