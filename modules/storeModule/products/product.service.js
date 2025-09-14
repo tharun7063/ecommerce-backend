@@ -351,6 +351,12 @@ async function getAllProducts() {
                         },
                     ],
                 },
+                {
+                    model: db.ProductMedia,
+                    as: "images",
+                    attributes: ["id", "uid", "name", "product_id", "url", "type"],
+                    
+                },
             ],
             order: [["id", "ASC"]],
         });
@@ -414,6 +420,12 @@ async function getProductByUid(req, res) {
                             through: { attributes: [] }, // hide join table
                         },
                     ],
+                },
+                {
+                    model: db.ProductMedia,
+                    as: "images",
+                    attributes: ["id", "uid", "name", "product_id", "url", "type"],
+                    
                 },
             ],
         });
