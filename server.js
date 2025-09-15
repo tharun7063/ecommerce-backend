@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: ["http://localhost:5173", "https://tharun7063.github.io/ecommerce-frontend/"],
+  origin: ["http://localhost:5173", "https://tharun7063.github.io"],
   credentials: true
 }));
 app.use(helmet());
