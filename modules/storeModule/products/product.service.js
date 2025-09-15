@@ -357,6 +357,13 @@ async function getAllProducts() {
                     attributes: ["id", "uid", "name", "product_id", "url", "type"],
                     
                 },
+                {
+                    model: db.Wishlist,
+                    as: "wishlists",
+                    where: { user_id: userId },
+                    required: false, // important! so products without wishlist entries are still included
+                    attributes: ["id", "user_id", "product_id", "variant_id"]
+                },
             ],
             order: [["id", "ASC"]],
         });
@@ -426,6 +433,13 @@ async function getProductByUid(req, res) {
                     as: "images",
                     attributes: ["id", "uid", "name", "product_id", "url", "type"],
                     
+                },
+                {
+                    model: db.Wishlist,
+                    as: "wishlists",
+                    where: { user_id: userId },
+                    required: false, // important! so products without wishlist entries are still included
+                    attributes: ["id", "user_id", "product_id", "variant_id"]
                 },
             ],
         });
