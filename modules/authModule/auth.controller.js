@@ -4,6 +4,8 @@ const authService = require('./auth.service');
 const config = require('../../config.json');
 const express = require('express');
 const Joi = require('joi');
+const auth = require('../../middleware/authMiddleware');
+
 
 const router = express.Router();
 
@@ -219,6 +221,22 @@ router.post('/resend-otp', resendOtpSchema, async (req, res, next) => {
         next(err);
     }
 });
+
+router.get(
+  '/',
+  auth.authenticate,
+  auth.authorizeAdminOnly,
+  authService.getAllUsers
+);
+
+// Get single user by UID (for details page)
+router.get(
+  '/:uid',
+  auth.authenticate,
+  auth.authorizeAdminOnly,
+  authService.getUserByUid
+);
+
 
 
 

@@ -18,7 +18,9 @@ module.exports = {
     authenticateUser,
     authenticatePass,
     refreshToken,
-    resendOtp
+    resendOtp,
+    getAllUsers,
+    getUserByUid,
 }
 
 
@@ -522,6 +524,39 @@ async function authenticatePass(req, res) {
         return res.status(500).json({ success: false, message: "Server error" });
     }
 }
+
+// Fetch all users
+async function getAllUsers(req, res) {
+  try {
+    const users = await db.User.findAll({
+      attributes: { exclude: ['password_hash'] },
+    });
+    return res.status(200).json({ success: true, users });
+  } catch (err) {
+    console.error("Error fetching users:", err);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+}
+
+// Fetch single user by UID
+async function getUserByUid(req, res) {
+  try {
+    const { uid } = req.params;
+
+    const user = await db.User.findOne({
+      where: { uid },
+      attributes: { exclude: ['password_hash'] },
+    });
+
+    if (!user) return res.status(404).json({ success: false, message: "User not found" });
+
+    return res.status(200).json({ success: true, user });
+  } catch (err) {
+    console.error("Error fetching user:", err);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+}
+
 
 
 // async function authenticatePass(req) {
